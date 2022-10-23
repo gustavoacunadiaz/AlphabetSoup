@@ -5,6 +5,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,9 +22,14 @@ public class Palabra {
 	public Integer sc;
 	public Integer er;
 	public Integer ec;
-	public long uuid;
-
-	public Palabra(String palabra, Integer sr, Integer sc, Integer er, Integer ec, long uuid) {
+	public String uuid;
+	public boolean encontrada;
+	
+	public Palabra () {
+		
+	}
+	
+	public Palabra(String palabra, Integer sr, Integer sc, Integer er, Integer ec, String uuid, boolean encontrada) {
 		super();
 		this.id = id;
 		this.palabra = palabra;
@@ -32,6 +38,7 @@ public class Palabra {
 		this.er = er;
 		this.ec = ec;
 		this.uuid = uuid;
+		this.encontrada = encontrada;
 	}
 
 	public Integer getId() {
@@ -70,16 +77,22 @@ public class Palabra {
 	public void setEc(Integer ec) {
 		this.ec = ec;
 	}
-	public long getUuid() {
+	public String getUuid() {
 		return uuid;
 	}
-	public void setUuid(long uuid) {
+	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+	public boolean isEncontrada() {
+		return encontrada;
+	}
+	public void setEncontrada(boolean encontrada) {
+		this.encontrada = encontrada;
 	}
 
 	@Override
 	public String toString() {
-		return "Palabra [id="+ id +",palabra=" + palabra + ", sr=" + sr + ", sc=" + sc + ", er=" + er + ", ec=" + ec + ", uuid="+ uuid +"]";
+		return "Palabra [id="+ id +",palabra=" + palabra + ", sr=" + sr + ", sc=" + sc + ", er=" + er + ", ec=" + ec + ", uuid="+ uuid + ", encontrada="+ encontrada + "]";
 	}
 
 }

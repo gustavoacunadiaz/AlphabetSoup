@@ -28,8 +28,14 @@ public class Soup {
 	private String cadena;
 		
 	UUID uuid = UUID.randomUUID();
+	
 	private String uuidString = uuid.toString();
+	
 	private boolean estado;
+	
+	public Soup() {
+		
+	}	
 	
 	public Soup(Integer id, Integer w, Integer h, boolean ltr, boolean rtl, boolean ttb, boolean btt, boolean d, String cadena, String uuidString, boolean estado) {
 		super();

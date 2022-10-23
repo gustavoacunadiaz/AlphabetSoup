@@ -15,23 +15,42 @@ public class SoupServiceImpl implements SoupService{
 	private SoupRepository soupRepository;
 		
 	@Override
-	public List<Palabra> findAll(){
-		return (List<Palabra>) soupRepository.findAll();
+	public Soup saveSoup(Soup soup) {
+		return soupRepository.save(soup);
 	}
 	
+	@Override
+	public Palabra savePalabra(Palabra palabra) {
+		return soupRepository.save(palabra);
+	}
+		
+	@Override
+	public List<Palabra> findAll(){
+		return (List<Palabra>) soupRepository.findAll();
+	}	
 	
 	@Override
-	public String findByUuid(long uuid) {
+	public List<String> findByUuid(String uuid) {
 		return soupRepository.findByUuid(uuid);
 	}
 	
+	@Override
+	public List<String> retornaEncontradas(String uuid) {
+		System.out.println(uuid);
+		return soupRepository.retornaEncontradas(uuid);
+	}
 	
 	@Override
-	public String validaPalabra() {
-		String output = null;		
-		return output;		
+	public Palabra validaPalabra(String uuid, Integer sr, Integer sc, Integer er, Integer ec) {
+		return soupRepository.buscaPalabraByFiltro(uuid, sr, sc, er, ec);	
 	}
-		
+	
+	
+	@Override
+	public void actualizaEstado(Integer id, String uuid) {
+		soupRepository.actualizaEstado(id, uuid);
+	}
+	
 	
 	public SoupServiceImpl(SoupRepository soupRepository) {
 		this.soupRepository = soupRepository;
