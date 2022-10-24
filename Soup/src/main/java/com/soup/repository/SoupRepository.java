@@ -16,9 +16,6 @@ public interface SoupRepository extends CrudRepository <Palabra, String>{
 	@Query(value="SELECT palabra FROM palabras WHERE uuid =:p_uuid", nativeQuery = true)
 	public List<String> findByUuid(@Param("p_uuid") String p_uuid);
 
-//	@Query(value="SELECT id,ec,encontrada,er,palabra,sc,sr,uuid FROM palabras WHERE uuid =:p_uuid", nativeQuery = true)
-//	public List<Palabra> retornaPalabrasByUuid(@Param("p_uuid") String p_uuid);
-	
 	public Soup save(Soup soup);
 	
 	public Palabra save(Palabra palabra);
