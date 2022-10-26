@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,13 +36,11 @@ public class SoupController {
 	
 	@PostMapping(value="/", produces = "application/json")
 	@ResponseBody
-	public String createSoup(@RequestBody Soup soup) {		
-		
-
-		
+	public ResponseEntity createSoup(@RequestBody Soup soup) {	
+		String output = null;
+				
 		Soup s = new Soup();
 		s.setBtt(soup.isBtt());
-//		s.setCadena("holadff\naaojoa");
 		s.setD(soup.isD());
 		s.setEstado(false);
 		s.setH(soup.getH());
@@ -48,64 +48,72 @@ public class SoupController {
 		s.setRtl(soup.isRtl());
 		s.setTtb(soup.isTtb());
 		s.setUuidString(soup.getUuidString());
-		s.setW(soup.getW());
+		s.setW(soup.getW());		
 		
-		Palabra p1 = new Palabra ("hola",0,0,0,3,s.getUuidString(),false);
-		Palabra p2 = new Palabra ("planta",1,0,1,5,s.getUuidString(),false);
-		Palabra p3 = new Palabra ("edificio",2,0,2,7,s.getUuidString(),false);
-		Palabra p4 = new Palabra ("refrigerador",3,0,3,11,s.getUuidString(),false);
-		
-		int limiteI = 97;
-		int limiteD = 122;
-		int ancho = s.getW();
-		int largo = s.getH();
-		
-		Random random = new Random();
-		StringBuilder buffer = new StringBuilder(largo);
+		if (soup.getW() >= 15 && soup.getW() <= 80) {
+			if (soup.getH() >= 15 && soup.getH() <= 80) {				
+				Palabra p1 = new Palabra ("hola",0,0,0,3,s.getUuidString(),false);
+				Palabra p2 = new Palabra ("planta",1,0,1,5,s.getUuidString(),false);
+				Palabra p3 = new Palabra ("edificio",2,0,2,7,s.getUuidString(),false);
+				Palabra p4 = new Palabra ("refrigerador",3,0,3,11,s.getUuidString(),false);
+				
+				int limiteI = 97;
+				int limiteD = 122;
+				int ancho = s.getW();
+				int largo = s.getH();
+				
+				Random random = new Random();
+				StringBuilder buffer = new StringBuilder(largo);
+					
+				for (int i = 0; i<largo; i++) {
+					for (int j=0; j<ancho; j++) {			
+										
+						if (p1.getSr() == i && p1.getSc() == j) {
+							buffer.append(p1.palabra);
+							j = j + (p1.palabra.length());
+						} 				
+						if (p2.getSr() == i && p2.getSc() == j) {
+							buffer.append(p2.palabra);
+							j = j + (p2.palabra.length());
+						} 				
+						if (p3.getSr() == i && p3.getSc() == j) {
+							buffer.append(p3.palabra);
+							j = j + (p3.palabra.length());
+						} 
+						if (p4.getSr() == i && p4.getSc() == j) {
+							buffer.append(p4.palabra);
+							j = j + (p4.palabra.length());
+						} 
+						
+						int randomLimit = limiteI + (int) (random.nextFloat() * (limiteD - limiteI + 1));
+						buffer.append((char) randomLimit);
+					}
+					
+					buffer.append("\n");
+				}	
+				String stringGenerado = buffer.toString();
+				
+				System.out.println(stringGenerado);		
+				
+				soupService.saveSoup(s);		
+				soupService.savePalabra(p1);
+				soupService.savePalabra(p2);
+				soupService.savePalabra(p3);
+				soupService.savePalabra(p4);
+						
+				output = "{\"id\":\""+s.getUuidString()+"\"}"; 
+				return new ResponseEntity<>(output,HttpStatus.OK);
 			
-		for (int i = 0; i<largo; i++) {
-			for (int j=0; j<ancho; j++) {			
-								
-				if (p1.getSr() == i && p1.getSc() == j) {
-					buffer.append(p1.palabra);
-					j = j + (p1.palabra.length());
-				} 				
-				if (p2.getSr() == i && p2.getSc() == j) {
-					buffer.append(p2.palabra);
-					j = j + (p2.palabra.length());
-				} 				
-				if (p3.getSr() == i && p3.getSc() == j) {
-					buffer.append(p3.palabra);
-					j = j + (p3.palabra.length());
-				} 
-				if (p4.getSr() == i && p4.getSc() == j) {
-					buffer.append(p4.palabra);
-					j = j + (p4.palabra.length());
-				} 
-				
-				int randomLimit = limiteI + (int) (random.nextFloat() * (limiteD - limiteI + 1));
-				buffer.append((char) randomLimit);
-				
-
+			} else {
+				output = "{\"message\":\"Mensaje de error\"}";
+				return new ResponseEntity<>(output,HttpStatus.BAD_REQUEST);
 			}
-			buffer.append("\n");
-		}	
-		String stringGenerado = buffer.toString();
+		} else {
+			
+			output = "{\"message\":\"Mensaje de error\"}";
+			return new ResponseEntity<>(output,HttpStatus.BAD_REQUEST);
+		}
 		
-		System.out.println(stringGenerado);
-		
-		
-		soupService.saveSoup(s);	
-		
-
-		
-		
-		soupService.savePalabra(p1);
-		soupService.savePalabra(p2);
-		soupService.savePalabra(p3);
-		soupService.savePalabra(p4);
-				
-		return s.getUuidString(); 
 	}
 	
 	@GetMapping(value="/list/{uuid}", produces = "application/json")
