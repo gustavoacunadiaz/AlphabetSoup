@@ -10,8 +10,9 @@ driver=com.mysql.cj.jdbc.Driver
 
 #RUN
 1-. Correr la instancia de BD creada anteriormente
-2-. En la ruta ..\AlphabetSoup\Soup ejecutar mvn clean install package para crear el componente JAR
-3-. Ejecutar mvn spring-boot:run para correr el aplicativo
+2-. Ejecutar Update Maven project sobre el pom.xml 
+3-. En la ruta ..\AlphabetSoup\Soup ejecutar mvn clean install package para crear el componente JAR
+4-. Ejecutar mvn spring-boot:run para correr el aplicativo
 
 
 #POSTMAN
