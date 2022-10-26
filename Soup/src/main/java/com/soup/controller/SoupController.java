@@ -38,20 +38,21 @@ public class SoupController {
 	@ResponseBody
 	public ResponseEntity createSoup(@RequestBody Soup soup) {	
 		String output = null;
-				
-		Soup s = new Soup();
-		s.setBtt(soup.isBtt());
-		s.setD(soup.isD());
-		s.setEstado(false);
-		s.setH(soup.getH());
-		s.setLtr(soup.isLtr());
-		s.setRtl(soup.isRtl());
-		s.setTtb(soup.isTtb());
-		s.setUuidString(soup.getUuidString());
-		s.setW(soup.getW());		
-		
+	
 		if (soup.getW() >= 15 && soup.getW() <= 80) {
-			if (soup.getH() >= 15 && soup.getH() <= 80) {				
+			if (soup.getH() >= 15 && soup.getH() <= 80) {	
+								
+				Soup s = new Soup();
+				s.setBtt(soup.isBtt());
+				s.setD(soup.isD());
+				s.setEstado(false);
+				s.setH(soup.getH());
+				s.setLtr(soup.isLtr());
+				s.setRtl(soup.isRtl());
+				s.setTtb(soup.isTtb());
+				s.setUuidString(soup.getUuidString());
+				s.setW(soup.getW());	
+				
 				Palabra p1 = new Palabra ("hola",0,0,0,3,s.getUuidString(),false);
 				Palabra p2 = new Palabra ("planta",1,0,1,5,s.getUuidString(),false);
 				Palabra p3 = new Palabra ("edificio",2,0,2,7,s.getUuidString(),false);
@@ -66,8 +67,7 @@ public class SoupController {
 				StringBuilder buffer = new StringBuilder(largo);
 					
 				for (int i = 0; i<largo; i++) {
-					for (int j=0; j<ancho; j++) {			
-										
+					for (int j=0; j<ancho; j++) {												
 						if (p1.getSr() == i && p1.getSc() == j) {
 							buffer.append(p1.palabra);
 							j = j + (p1.palabra.length());
@@ -84,16 +84,14 @@ public class SoupController {
 							buffer.append(p4.palabra);
 							j = j + (p4.palabra.length());
 						} 
-						
 						int randomLimit = limiteI + (int) (random.nextFloat() * (limiteD - limiteI + 1));
 						buffer.append((char) randomLimit);
-					}
-					
+					}					
 					buffer.append("\n");
 				}	
 				String stringGenerado = buffer.toString();
-				
 				System.out.println(stringGenerado);		
+				s.setCadena(stringGenerado);
 				
 				soupService.saveSoup(s);		
 				soupService.savePalabra(p1);

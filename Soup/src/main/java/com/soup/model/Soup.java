@@ -2,6 +2,7 @@ package com.soup.model;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -25,6 +26,8 @@ public class Soup {
 	private boolean ttb;
 	private boolean btt;
 	private boolean d;
+	
+	@Column(length = 100000)
 	private String cadena;
 		
 	UUID uuid = UUID.randomUUID();
