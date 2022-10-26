@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "0bf18362-da12-40a5-81b8-64936350a2b9",
+		"name": "Sopa de Letras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15756649"
+	},
+	"item": [
+		{
+			"name": "Crea Sopa de Letras",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"w\":15,\r\n    \"h\":20,\r\n    \"ltr\":true,\r\n    \"rtl\":false,\r\n    \"ttb\":true,\r\n    \"btt\":false,\r\n    \"d\":false\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9878/alphabetSoup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9878",
+					"path": [
+						"alphabetSoup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista de palabras",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9878/alphabetSoup/list/7fe946af-501d-4ac2-94b7-deb76b32f82f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9878",
+					"path": [
+						"alphabetSoup",
+						"list",
+						"7fe946af-501d-4ac2-94b7-deb76b32f82f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Palabras Encontradas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9878/alphabetSoup/view/f582addc-a813-4e1b-87b0-fef63d371a4c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9878",
+					"path": [
+						"alphabetSoup",
+						"view",
+						"f582addc-a813-4e1b-87b0-fef63d371a4c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valida Palabra",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sr\":2,\r\n    \"sc\":0,\r\n    \"er\":2,\r\n    \"ec\":7\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9878/alphabetSoup/7fe946af-501d-4ac2-94b7-deb76b32f82f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9878",
+					"path": [
+						"alphabetSoup",
+						"7fe946af-501d-4ac2-94b7-deb76b32f82f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
